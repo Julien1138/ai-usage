@@ -4,6 +4,10 @@ Application Pebble qui affiche les jauges d'utilisation de Claude.ai
 (session de 5 h et limite hebdomadaire) directement sur la montre, avec le
 temps restant avant réinitialisation sous chaque jauge.
 
+| Pebble Time | Time Round | Pebble 2 | Time 2 |
+|:---:|:---:|:---:|:---:|
+| ![basalt](screenshots/basalt.png) | ![chalk](screenshots/chalk.png) | ![diorite](screenshots/diorite.png) | ![emery](screenshots/emery.png) |
+
 ## Fonctionnement
 
 - Le téléphone (PebbleKit JS) envoie une requête sonde minimale
@@ -65,3 +69,7 @@ src/c/theme.h        Couleurs claude.ai (et équivalents noir & blanc)
 src/pkjs/index.js    Côté téléphone : sonde API + en-têtes ratelimit, Clay
 src/pkjs/config.js   Page de configuration (token, période de mise à jour)
 ```
+
+## Licence
+
+[MIT](LICENSE)
