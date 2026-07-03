@@ -1,0 +1,45 @@
+{
+  "name": "ai-usage",
+  "author": "Julien Aupart <julien.aupart@gmail.com>",
+  "version": "1.0.0",
+  "keywords": [
+    "pebble-app"
+  ],
+  "private": true,
+  "pebble": {
+    "displayName": "AI Usage",
+    "uuid": "b41aa26d-fbf5-4dde-9c2d-e32c14a08dd9",
+    "sdkVersion": "3",
+    "enableMultiJS": true,
+    "targetPlatforms": [
+      "aplite",
+      "basalt",
+      "chalk",
+      "diorite",
+      "emery",
+      "flint",
+      "gabbro"
+    ],
+    "watchapp": {
+      "watchface": false
+    },
+    "capabilities": [
+      "configurable"
+    ],
+    "messageKeys": [
+      "GaugeLabels",
+      "GaugePercents",
+      "GaugeResets",
+      "Status",
+      "Refresh",
+      "ClaudeToken",
+      "RefreshPeriod"
+    ],
+    "resources": {
+      "media": []
+    }
+  },
+  "dependencies": {
+    "@rebble/clay": "^1.0.10"
+  }
+}
