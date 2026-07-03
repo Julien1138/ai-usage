@@ -16,9 +16,13 @@ pebble publish \
   --source https://github.com/Julien1138/ai-usage \
   --icon-small store-assets/icon_small_48.png \
   --icon-large store-assets/icon_large_144.png \
-  --screenshots screenshots/basalt.png screenshots/chalk.png \
-                screenshots/diorite.png screenshots/emery.png
+  --screenshots screenshots/*_gauges.png
 ```
+
+Les fichiers de capture doivent commencer par le nom de la plateforme
+(`basalt_...`, `chalk_...`) : c'est ainsi que `pebble publish` les associe
+aux collections d'assets. Une capture est fournie pour chacune des
+7 plateformes.
 
 La commande demande une connexion (compte développeur Rebble) au premier
 lancement, crée la fiche, téléverse le `.pbw` et peut générer les captures
@@ -35,11 +39,11 @@ Sur <https://dev-portal.rebble.io> :
 2. « Add a release » : téléverser `build/ai-usage.pbw` (+ notes de version),
    puis « Publish » sur la release.
 3. « Manage Asset Collections » : créer une collection par plateforme
-   supportée avec description et captures :
-   - aplite / basalt / diorite / flint : 144×168 (`screenshots/basalt.png`,
-     `screenshots/diorite.png`)
-   - chalk : 180×180 (`screenshots/chalk.png`)
-   - emery / gabbro : 200×228 (`screenshots/emery.png`)
+   supportée avec description et sa capture `screenshots/<plateforme>_gauges.png` :
+   - aplite / basalt / diorite / flint : 144×168
+   - chalk : 180×180
+   - emery : 200×228
+   - gabbro (Pebble Round 2) : 260×260
 
 ## Textes proposés
 
@@ -73,7 +77,5 @@ Sur <https://dev-portal.rebble.io> :
 | Icône 48×48 | `store-assets/icon_small_48.png` | ✅ |
 | Icône 144×144 | `store-assets/icon_large_144.png` | ✅ |
 | Icône de menu (embarquée) | `resources/images/menu_icon.png` | ✅ |
-| Captures 144×168 | `screenshots/basalt.png`, `screenshots/diorite.png` | ✅ |
-| Capture 180×180 | `screenshots/chalk.png` | ✅ |
-| Capture 200×228 | `screenshots/emery.png` | ✅ |
+| Captures (une par plateforme, 7) | `screenshots/<plateforme>_gauges.png` | ✅ |
 | Compte développeur Rebble | à créer/connecter sur dev-portal.rebble.io | ⬜ |

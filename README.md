@@ -6,7 +6,7 @@ temps restant avant réinitialisation sous chaque jauge.
 
 | Pebble Time | Time Round | Pebble 2 | Time 2 |
 |:---:|:---:|:---:|:---:|
-| ![basalt](screenshots/basalt.png) | ![chalk](screenshots/chalk.png) | ![diorite](screenshots/diorite.png) | ![emery](screenshots/emery.png) |
+| ![basalt](screenshots/basalt_gauges.png) | ![chalk](screenshots/chalk_gauges.png) | ![diorite](screenshots/diorite_gauges.png) | ![emery](screenshots/emery_gauges.png) |
 
 ## Fonctionnement
 
