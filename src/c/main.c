@@ -32,12 +32,6 @@ static void click_config_provider(void *context) {
   window_single_repeating_click_subscribe(BUTTON_ID_DOWN, 100, down_click_handler);
 }
 
-// Rafraîchit l'affichage chaque minute pour les comptes à rebours de
-// réinitialisation.
-static void tick_handler(struct tm *tick_time, TimeUnits units_changed) {
-  ui_mark_dirty();
-}
-
 static void window_load(Window *window) {
   ui_window_load(window);
 }
@@ -59,11 +53,11 @@ static void init(void) {
   window_stack_push(s_window, true);
 
   comm_init();
-  tick_timer_service_subscribe(MINUTE_UNIT, tick_handler);
+  ui_start_clock();
 }
 
 static void deinit(void) {
-  tick_timer_service_unsubscribe();
+  ui_stop_clock();
   window_destroy(s_window);
 }
 

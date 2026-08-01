@@ -19,6 +19,10 @@ time_t gauges_reset(int index);
 const char *gauges_status(void);
 void gauges_set_status(const char *status);
 
+// Epoch Unix de la dernière mise à jour des jauges reçue du téléphone,
+// 0 si jamais reçue.
+time_t gauges_last_update(void);
+
 // Remplace les jauges depuis les chaînes "label|label|...", "pct|pct|..."
 // et "epoch|epoch|..." puis les persiste sur la montre.
 void gauges_set_from_joined(const char *labels_joined, const char *percents_joined,

@@ -12,3 +12,8 @@ void ui_mark_dirty(void);
 void ui_scroll(int direction);
 // Revient en haut du contenu (à l'arrivée de nouvelles données).
 void ui_reset_scroll(void);
+
+// Démarre/arrête le rafraîchissement périodique (horloge, jauges, « mis à
+// jour il y a »). La cadence s'ajuste automatiquement à l'unité affichée.
+void ui_start_clock(void);
+void ui_stop_clock(void);

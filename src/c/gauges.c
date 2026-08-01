@@ -3,12 +3,14 @@
 #define PERSIST_KEY_LABELS 1
 #define PERSIST_KEY_PERCENTS 2
 #define PERSIST_KEY_RESETS 3
+#define PERSIST_KEY_LAST_UPDATE 4
 
 static int s_count = 0;
 static char s_labels[MAX_GAUGES][MAX_LABEL_LEN];
 static int s_percents[MAX_GAUGES];
 static time_t s_resets[MAX_GAUGES];
 static char s_status[MAX_STATUS_LEN] = "Chargement...";
+static time_t s_last_update = 0;
 
 int gauges_count(void) {
   return s_count;
@@ -33,6 +35,10 @@ const char *gauges_status(void) {
 void gauges_set_status(const char *status) {
   strncpy(s_status, status, sizeof(s_status) - 1);
   s_status[sizeof(s_status) - 1] = '\0';
+}
+
+time_t gauges_last_update(void) {
+  return s_last_update;
 }
 
 // Découpe la chaîne sur '|' en place et renvoie le segment courant,
@@ -90,6 +96,8 @@ void gauges_set_from_joined(const char *labels_joined, const char *percents_join
   persist_write_string(PERSIST_KEY_LABELS, labels_joined);
   persist_write_string(PERSIST_KEY_PERCENTS, percents_joined);
   persist_write_string(PERSIST_KEY_RESETS, resets_joined);
+  s_last_update = time(NULL);
+  persist_write_int(PERSIST_KEY_LAST_UPDATE, (int32_t)s_last_update);
 }
 
 void gauges_load_persisted(void) {
@@ -103,5 +111,8 @@ void gauges_load_persisted(void) {
       persist_read_string(PERSIST_KEY_RESETS, resets_buf, sizeof(resets_buf));
     }
     parse_joined(labels_buf, percents_buf, resets_buf);
+  }
+  if (persist_exists(PERSIST_KEY_LAST_UPDATE)) {
+    s_last_update = (time_t)persist_read_int(PERSIST_KEY_LAST_UPDATE);
   }
 }
