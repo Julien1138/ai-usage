@@ -1,5 +1,7 @@
 #include "gauges.h"
 
+#include "i18n.h"
+
 #define PERSIST_KEY_LABELS 1
 #define PERSIST_KEY_PERCENTS 2
 #define PERSIST_KEY_RESETS 3
@@ -9,7 +11,9 @@ static int s_count = 0;
 static char s_labels[MAX_GAUGES][MAX_LABEL_LEN];
 static int s_percents[MAX_GAUGES];
 static time_t s_resets[MAX_GAUGES];
-static char s_status[MAX_STATUS_LEN] = "Chargement...";
+// Vide tant qu'aucun statut n'a été reçu : gauges_status() retombe alors
+// sur la chaîne traduite « Chargement... ».
+static char s_status[MAX_STATUS_LEN] = "";
 static time_t s_last_update = 0;
 
 int gauges_count(void) {
@@ -29,7 +33,7 @@ time_t gauges_reset(int index) {
 }
 
 const char *gauges_status(void) {
-  return s_status;
+  return s_status[0] != '\0' ? s_status : i18n_get(STR_LOADING);
 }
 
 void gauges_set_status(const char *status) {

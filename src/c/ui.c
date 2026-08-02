@@ -1,6 +1,7 @@
 #include "ui.h"
 
 #include "gauges.h"
+#include "i18n.h"
 #include "mascot.h"
 #include "theme.h"
 
@@ -14,7 +15,6 @@
 #define ROUND_INSET 6
 #define SCROLL_STEP 42
 
-#define TITLE_TEXT "Claude usage"
 #define TITLE_H 24
 #define TITLE_GAP 6
 #define MASCOT_GAP 6
@@ -148,18 +148,18 @@ static void format_reset(time_t reset, char *buf, size_t len) {
   }
   int32_t delta = reset - time(NULL);
   if (delta <= 60) {
-    snprintf(buf, len, "Réinit. imminente");
+    snprintf(buf, len, "%s", i18n_get(STR_RESET_IMMINENT));
     return;
   }
   int days = delta / 86400;
   int hours = (delta % 86400) / 3600;
   int mins = (delta % 3600) / 60;
   if (days > 0) {
-    snprintf(buf, len, "Réinit. dans %dj %dh", days, hours);
+    snprintf(buf, len, i18n_get(STR_RESET_IN_D_H), days, hours);
   } else if (hours > 0) {
-    snprintf(buf, len, "Réinit. dans %dh%02d", hours, mins);
+    snprintf(buf, len, i18n_get(STR_RESET_IN_H_M), hours, mins);
   } else {
-    snprintf(buf, len, "Réinit. dans %d min", mins);
+    snprintf(buf, len, i18n_get(STR_RESET_IN_MIN), mins);
   }
 }
 
@@ -167,11 +167,12 @@ static void format_reset(time_t reset, char *buf, size_t len) {
 // titre s'appuie sur une corde presque pleine largeur (marge réduite) et la
 // police diminue si elle est encore trop étroite.
 static void draw_title(GContext *ctx, GRect bounds, int16_t y) {
+  const char *title = i18n_get(STR_TITLE);
   GFont font = fonts_get_system_font(FONT_KEY_GOTHIC_18_BOLD);
   int16_t text_center_offset = 11;
   GRect measure_rect = GRect(0, 0, bounds.size.w, TITLE_H);
   GSize text_size = graphics_text_layout_get_content_size(
-      TITLE_TEXT, font, measure_rect, GTextOverflowModeTrailingEllipsis,
+      title, font, measure_rect, GTextOverflowModeTrailingEllipsis,
       GTextAlignmentLeft);
 
   int16_t x0;
@@ -180,14 +181,14 @@ static void draw_title(GContext *ctx, GRect bounds, int16_t y) {
     font = fonts_get_system_font(FONT_KEY_GOTHIC_14_BOLD);
     text_center_offset = 9;
     text_size = graphics_text_layout_get_content_size(
-        TITLE_TEXT, font, measure_rect, GTextOverflowModeTrailingEllipsis,
+        title, font, measure_rect, GTextOverflowModeTrailingEllipsis,
         GTextAlignmentLeft);
   }
 
   mascot_draw(ctx, GPoint(x0, y + text_center_offset - MASCOT_H / 2));
 
   graphics_context_set_text_color(ctx, COLOR_TEXT);
-  graphics_draw_text(ctx, TITLE_TEXT, font,
+  graphics_draw_text(ctx, title, font,
                      GRect(x0 + MASCOT_W + MASCOT_GAP, y,
                            avail - MASCOT_W - MASCOT_GAP, TITLE_H),
                      GTextOverflowModeTrailingEllipsis, GTextAlignmentLeft, NULL);
@@ -238,13 +239,13 @@ static void format_last_update(time_t last_update, char *buf, size_t len) {
   int mins = (delta % 3600) / 60;
   int secs = delta % 60;
   if (days > 0) {
-    snprintf(buf, len, "Mis à jour il y a %dj %dh", days, hours);
+    snprintf(buf, len, i18n_get(STR_UPDATED_D_H), days, hours);
   } else if (hours > 0) {
-    snprintf(buf, len, "Mis à jour il y a %dh%02d", hours, mins);
+    snprintf(buf, len, i18n_get(STR_UPDATED_H_M), hours, mins);
   } else if (mins > 0) {
-    snprintf(buf, len, "Mis à jour il y a %d min", mins);
+    snprintf(buf, len, i18n_get(STR_UPDATED_MIN), mins);
   } else {
-    snprintf(buf, len, "Mis à jour il y a %d s", secs);
+    snprintf(buf, len, i18n_get(STR_UPDATED_SEC), secs);
   }
 }
 

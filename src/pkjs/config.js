@@ -1,3 +1,5 @@
+var t = require('./i18n');
+
 module.exports = [
   {
     "type": "heading",
@@ -5,7 +7,7 @@ module.exports = [
   },
   {
     "type": "text",
-    "defaultValue": "Affiche vos jauges d'utilisation Claude sur votre Pebble."
+    "defaultValue": t('config_intro')
   },
   {
     "type": "section",
@@ -13,7 +15,7 @@ module.exports = [
       {
         "type": "input",
         "messageKey": "ClaudeToken",
-        "label": "Token OAuth Claude Code",
+        "label": t('config_token_label'),
         "defaultValue": "",
         "attributes": {
           "placeholder": "sk-ant-oat01-...",
@@ -22,7 +24,7 @@ module.exports = [
       },
       {
         "type": "text",
-        "defaultValue": "Pour obtenir un token : installez Claude Code sur un ordinateur, lancez « claude setup-token » dans un terminal, puis copiez le token généré ici. Le token reste sur votre téléphone."
+        "defaultValue": t('config_token_help')
       }
     ]
   },
@@ -32,7 +34,7 @@ module.exports = [
       {
         "type": "select",
         "messageKey": "RefreshPeriod",
-        "label": "Période de mise à jour",
+        "label": t('config_refresh_label'),
         "defaultValue": "5",
         "options": [
           { "label": "1 minute", "value": "1" },
@@ -45,12 +47,12 @@ module.exports = [
       },
       {
         "type": "text",
-        "defaultValue": "Les jauges ne sont mises à jour que lorsque l'application est ouverte sur la montre (appui Select pour forcer une mise à jour)."
+        "defaultValue": t('config_refresh_help')
       }
     ]
   },
   {
     "type": "submit",
-    "defaultValue": "Enregistrer"
+    "defaultValue": t('config_submit')
   }
 ];

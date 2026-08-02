@@ -1,5 +1,6 @@
 var Clay = require('@rebble/clay');
 var clayConfig = require('./config');
+var t = require('./i18n');
 var clay = new Clay(clayConfig, null, { autoHandleEvents: false });
 
 var MESSAGES_URL = 'https://api.anthropic.com/v1/messages';
@@ -9,8 +10,8 @@ var DEFAULT_REFRESH_MIN = 5;
 
 // Seules jauges affichées : session de 5 h et limite hebdomadaire.
 var BUCKETS = [
-  { name: '5h', label: 'Session 5h' },
-  { name: '7d', label: 'Semaine' }
+  { name: '5h', label: t('gauge_session_5h') },
+  { name: '7d', label: t('gauge_week') }
 ];
 
 var fetchInProgress = false;
@@ -89,7 +90,7 @@ function parseHeaderGauges(rawHeaders) {
 function fetchUsage() {
   var token = getToken();
   if (!token) {
-    sendStatus('Pas de token.\nOuvrez les réglages dans l\'app Pebble.');
+    sendStatus(t('status_no_token'));
     return;
   }
   if (fetchInProgress) {
@@ -111,18 +112,18 @@ function fetchUsage() {
     if (gauges.length > 0) {
       sendGauges(gauges);
     } else if (xhr.status === 401 || xhr.status === 403) {
-      sendStatus('Token invalide ou expiré.\nRefaites « claude setup-token ».');
+      sendStatus(t('status_bad_token'));
     } else {
-      sendStatus('Jauges introuvables\n(HTTP ' + xhr.status + ')');
+      sendStatus(t('status_no_gauges') + '\n(HTTP ' + xhr.status + ')');
     }
   };
   xhr.onerror = function() {
     fetchInProgress = false;
-    sendStatus('Erreur réseau');
+    sendStatus(t('status_network_error'));
   };
   xhr.ontimeout = function() {
     fetchInProgress = false;
-    sendStatus('Délai dépassé');
+    sendStatus(t('status_timeout'));
   };
 
   xhr.send(JSON.stringify({

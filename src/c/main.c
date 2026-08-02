@@ -5,6 +5,7 @@
 
 #include "comm.h"
 #include "gauges.h"
+#include "i18n.h"
 #include "theme.h"
 #include "ui.h"
 
@@ -12,7 +13,7 @@ static Window *s_window;
 
 static void select_click_handler(ClickRecognizerRef recognizer, void *context) {
   if (gauges_count() == 0) {
-    gauges_set_status("Actualisation...");
+    gauges_set_status(i18n_get(STR_REFRESHING));
     ui_mark_dirty();
   }
   comm_request_refresh();
