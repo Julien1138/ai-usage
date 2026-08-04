@@ -52,8 +52,8 @@ Sur <https://dev-portal.rebble.io> :
 > See your Claude.ai usage gauges at a glance: 5-hour session and weekly
 > limit, each with its percentage and time until reset. Configure once with
 > a Claude Code OAuth token (`claude setup-token`); the token stays on your
-> phone. Refresh interval is configurable, and Clawd the crab keeps an eye
-> on your quota.
+> phone. Refresh interval is configurable, the interface is available in
+> English and French, and Clawd the crab keeps an eye on your quota.
 
 **Description courte (FR)**
 
@@ -61,13 +61,36 @@ Sur <https://dev-portal.rebble.io> :
 > limite hebdomadaire, avec pourcentage et temps restant avant
 > réinitialisation. Configuration unique avec un token OAuth Claude Code
 > (`claude setup-token`) ; le token reste sur votre téléphone. Période de
-> rafraîchissement réglable, et Clawd le crabe garde un œil sur votre quota.
+> rafraîchissement réglable, interface disponible en anglais et en
+> français, et Clawd le crabe garde un œil sur votre quota.
 
 **Notes de version 1.0.0**
 
 > Première version : jauges Session 5h et Semaine, comptes à rebours de
 > réinitialisation, couleurs claude.ai, écrans ronds et noir & blanc
 > supportés, période de mise à jour configurable.
+
+**Notes de version 1.1.0**
+
+> Heure affichée en haut de l'écran et indicateur « mis à jour il y a … »
+> en bas.
+
+**Notes de version 1.2.0**
+
+> Interface disponible en anglais et en français. Les textes de la montre
+> suivent la langue de la montre, les messages de statut et la page de
+> réglages suivent celle du téléphone.
+
+> The interface is now available in English and French. Watch text follows
+> the watch language; status messages and the settings page follow the
+> phone language.
+
+## Mise à jour de la description du store
+
+`pebble publish` n'envoie `--description` qu'à la **création** de la fiche :
+pour une app existante, il ne téléverse qu'une release (`.pbw`, version,
+notes, captures). La description doit donc être modifiée à la main sur
+<https://dev-portal.rebble.io> (fiche de l'app → champ description).
 
 ## Checklist des assets
 
