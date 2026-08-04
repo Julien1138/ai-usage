@@ -27,6 +27,10 @@ temps restant avant réinitialisation sous chaque jauge.
   hauteur.
 - Les dernières valeurs sont persistées sur la montre et affichées
   immédiatement à l'ouverture, le temps du rafraîchissement.
+- Interface disponible en anglais et en français : les textes de la montre
+  suivent la langue de la montre (`i18n_get_system_locale`), les messages
+  de statut et la page de réglages suivent celle du téléphone
+  (`navigator.language`).
 
 ## Configuration
 
