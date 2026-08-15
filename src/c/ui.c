@@ -268,6 +268,18 @@ static void draw_last_update(GContext *ctx, GRect bounds) {
 static void draw_gauge_row(GContext *ctx, int index, int16_t x, int16_t y,
                            int16_t width) {
   GFont label_font = fonts_get_system_font(FONT_KEY_GOTHIC_14_BOLD);
+  int pct = gauges_percent(index);
+
+  // Pourcentage négatif : rangée-indicateur, libellé seul en couleur
+  // d'accent, replié sur plusieurs lignes puisqu'il dispose de toute la
+  // hauteur de rangée.
+  if (pct < 0) {
+    graphics_context_set_text_color(ctx, COLOR_ACCENT);
+    graphics_draw_text(ctx, gauges_label(index), label_font,
+                       GRect(x, y - 3, width, ROW_H),
+                       GTextOverflowModeWordWrap, GTextAlignmentLeft, NULL);
+    return;
+  }
 
   graphics_context_set_text_color(ctx, COLOR_TEXT);
   graphics_draw_text(ctx, gauges_label(index), label_font,
@@ -275,7 +287,7 @@ static void draw_gauge_row(GContext *ctx, int index, int16_t x, int16_t y,
                      GTextOverflowModeTrailingEllipsis, GTextAlignmentLeft, NULL);
 
   char pct_buf[8];
-  snprintf(pct_buf, sizeof(pct_buf), "%d%%", gauges_percent(index));
+  snprintf(pct_buf, sizeof(pct_buf), "%d%%", pct);
   graphics_draw_text(ctx, pct_buf, label_font, GRect(x, y - 3, width, TEXT_H),
                      GTextOverflowModeTrailingEllipsis, GTextAlignmentRight, NULL);
 
@@ -287,10 +299,6 @@ static void draw_gauge_row(GContext *ctx, int index, int16_t x, int16_t y,
   graphics_draw_round_rect(ctx, track, BAR_RADIUS);
 #endif
 
-  int pct = gauges_percent(index);
-  if (pct < 0) {
-    pct = 0;
-  }
   if (pct > 100) {
     pct = 100;
   }

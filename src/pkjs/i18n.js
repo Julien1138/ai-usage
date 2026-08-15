@@ -6,6 +6,7 @@ var MESSAGES = {
   en: {
     gauge_session_5h: '5h session',
     gauge_week: 'Week',
+    gauge_overage_active: 'Now using usage credits',
     status_no_token: 'No token.\nOpen the settings in the Pebble app.',
     status_bad_token: 'Invalid or expired token.\nRun "claude setup-token" again.',
     status_no_gauges: 'Gauges not found',
@@ -21,6 +22,7 @@ var MESSAGES = {
   fr: {
     gauge_session_5h: 'Session 5h',
     gauge_week: 'Semaine',
+    gauge_overage_active: 'Crédits d\'utilisation en cours',
     status_no_token: 'Pas de token.\nOuvrez les réglages dans l\'app Pebble.',
     status_bad_token: 'Token invalide ou expiré.\nRefaites « claude setup-token ».',
     status_no_gauges: 'Jauges introuvables',

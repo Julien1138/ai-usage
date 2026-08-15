@@ -6,7 +6,9 @@
 // persistance des dernières valeurs connues.
 
 #define MAX_GAUGES 8
-#define MAX_LABEL_LEN 24
+// Assez large pour les libellés d'indicateur, plus longs que ceux des
+// jauges chiffrées et repliés sur deux lignes à l'écran.
+#define MAX_LABEL_LEN 40
 #define MAX_STATUS_LEN 96
 #define MAX_JOINED_LEN 256
 

@@ -1,8 +1,9 @@
 # AI Usage
 
 Application Pebble qui affiche les jauges d'utilisation de Claude.ai
-(session de 5 h et limite hebdomadaire) directement sur la montre, avec le
-temps restant avant réinitialisation sous chaque jauge.
+(session de 5 h, limite hebdomadaire, et dépassement lorsqu'il est actif)
+directement sur la montre, avec le temps restant avant réinitialisation sous
+chaque jauge.
 
 | Pebble Time | Time Round | Pebble 2 | Time 2 |
 |:---:|:---:|:---:|:---:|
@@ -19,6 +20,12 @@ temps restant avant réinitialisation sous chaque jauge.
   Ces en-têtes sont accessibles avec le scope `user:inference` des tokens
   `claude setup-token` (contrairement à l'endpoint `/api/oauth/usage`, qui
   exige `user:profile`).
+- Une ligne « Crédits d'utilisation en cours » s'ajoute sous les deux jauges
+  quand l'en-tête `anthropic-ratelimit-unified-overage-in-use` vaut `true`,
+  c'est-à-dire quand les crédits prennent le relais d'un forfait épuisé.
+  C'est un indicateur et non une jauge : les en-têtes ne donnent aucun
+  pourcentage pour ce bucket (voir plus bas), et aucune échéance n'est
+  affichée puisque `overage-reset` ne porte que sur la facturation mensuelle.
 - Sur la montre : en-tête « Claude usage » avec Clawd (la mascotte de
   Claude Code) en pixel art, puis une jauge par ligne — intitulé et
   pourcentage au-dessus de la barre, compte à rebours de réinitialisation
@@ -31,6 +38,37 @@ temps restant avant réinitialisation sous chaque jauge.
   suivent la langue de la montre (`i18n_get_system_locale`), les messages
   de statut et la page de réglages suivent celle du téléphone
   (`navigator.language`).
+
+### Ce que les en-têtes ne donnent pas : le solde de crédits
+
+Les en-têtes disent **si** l'on est en dépassement, jamais **combien** on a
+dépensé. Relevé sur un compte réel en dépassement actif (15/08/2026 18:41),
+avec 5,10 € de crédits consommés sur un plafond mensuel de 10,00 € :
+
+| Source | Valeur |
+|---|---|
+| en-tête `overage-in-use` | `true` |
+| en-tête `overage-utilization` | `0.0` |
+| en-tête `5h-utilization` / `5h-status` | `1.0` / `rejected` |
+| `/api/oauth/usage` → `extra_usage.utilization` | `51.0` |
+| `/api/oauth/usage` → `spend.percent` | `51` |
+
+Piège à éviter : `overage-utilization` ne suit pas la consommation de
+crédits. Il vaut `0.0` au moment même où l'on puise dessus, si bien qu'une
+jauge conditionnée à « utilisation > 0 » ne s'affiche jamais. Seul
+`overage-in-use` distingue les deux états. De même, `overage-reset` ne
+délimite pas une fenêtre courte : il pointait le 01/09/2026, soit la
+réinitialisation mensuelle des crédits 16 jours plus tard.
+
+Le montant en euros n'existe que sur `/api/oauth/usage` (champs
+`extra_usage` et `spend`), qui exige le scope `user:profile`. Les tokens
+`claude setup-token` sont annoncés comme limités à `user:inference`
+(« Long-lived tokens […] are limited to inference-only for security
+reasons », message de la CLI Claude Code) — annonce non vérifiée par une
+mesure ici, contrairement au reste de ce tableau. Le token de session de
+Claude Code, lui, porte bien `user:profile`, mais s'en servir imposerait
+d'en gérer le rafraîchissement, avec un risque de rotation du refresh token
+invalidant la session Claude Code de l'utilisateur.
 
 ## Configuration
 

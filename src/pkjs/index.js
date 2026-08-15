@@ -8,11 +8,21 @@ var OAUTH_BETA = 'oauth-2025-04-20';
 var PROBE_MODEL = 'claude-haiku-4-5-20251001';
 var DEFAULT_REFRESH_MIN = 5;
 
-// Seules jauges affichées : session de 5 h et limite hebdomadaire.
+// Jauges chiffrées : session de 5 h et limite hebdomadaire.
 var BUCKETS = [
   { name: '5h', label: t('gauge_session_5h') },
   { name: '7d', label: t('gauge_week') }
 ];
+
+// Le recours aux crédits est signalé par le booléen
+// `anthropic-ratelimit-unified-overage-in-use` ; ce bucket n'expose aucun
+// pourcentage exploitable (voir le README).
+var OVERAGE_BUCKET = 'overage';
+
+// Pourcentage sentinelle : la montre dessine alors une rangée-indicateur,
+// libellé seul, sans barre ni pourcentage (voir draw_gauge_row dans
+// src/c/ui.c).
+var INDICATOR_PERCENT = -1;
 
 var fetchInProgress = false;
 var refreshTimer = null;
@@ -82,6 +92,16 @@ function parseHeaderGauges(rawHeaders) {
       reset: reset ? parseInt(reset[1], 10) : 0
     });
   });
+
+  // Rangée-indicateur ajoutée seulement tant que les crédits sont sollicités.
+  if (new RegExp('anthropic-ratelimit-unified-' + OVERAGE_BUCKET +
+                 '-in-use:\\s*true', 'i').test(rawHeaders)) {
+    gauges.push({
+      label: t('gauge_overage_active'),
+      percent: INDICATOR_PERCENT,
+      reset: 0
+    });
+  }
   return gauges;
 }
 
