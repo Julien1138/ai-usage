@@ -286,7 +286,9 @@ static void draw_gauge_row(GContext *ctx, int index, int16_t x, int16_t y,
                      GRect(x, y - 3, width - 36, TEXT_H),
                      GTextOverflowModeTrailingEllipsis, GTextAlignmentLeft, NULL);
 
-  char pct_buf[8];
+  // Dimensionné pour un int quelconque : le pourcentage vient du téléphone
+  // et n'est borné qu'au moment de dessiner la barre.
+  char pct_buf[16];
   snprintf(pct_buf, sizeof(pct_buf), "%d%%", pct);
   graphics_draw_text(ctx, pct_buf, label_font, GRect(x, y - 3, width, TEXT_H),
                      GTextOverflowModeTrailingEllipsis, GTextAlignmentRight, NULL);
