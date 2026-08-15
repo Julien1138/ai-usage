@@ -22,7 +22,7 @@ var MESSAGES = {
   fr: {
     gauge_session_5h: 'Session 5h',
     gauge_week: 'Semaine',
-    gauge_overage_active: 'Crédits d\'utilisation en cours',
+    gauge_overage_active: 'Utilisation des crédits en cours',
     status_no_token: 'Pas de token.\nOuvrez les réglages dans l\'app Pebble.',
     status_bad_token: 'Token invalide ou expiré.\nRefaites « claude setup-token ».',
     status_no_gauges: 'Jauges introuvables',
@@ -42,6 +42,6 @@ function getLanguage() {
   return language.toLowerCase().indexOf('fr') === 0 ? 'fr' : 'en';
 }
 
-module.exports = function(key) {
+module.exports = function (key) {
   return MESSAGES[getLanguage()][key];
 };

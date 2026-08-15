@@ -5,8 +5,8 @@ Application Pebble qui affiche les jauges d'utilisation de Claude.ai
 directement sur la montre, avec le temps restant avant réinitialisation sous
 chaque jauge.
 
-| Pebble Time | Time Round | Pebble 2 | Time 2 |
-|:---:|:---:|:---:|:---:|
+|               Pebble Time                |               Time Round               |                  Pebble 2                  |                 Time 2                 |
+| :--------------------------------------: | :------------------------------------: | :----------------------------------------: | :------------------------------------: |
 | ![basalt](screenshots/basalt_gauges.png) | ![chalk](screenshots/chalk_gauges.png) | ![diorite](screenshots/diorite_gauges.png) | ![emery](screenshots/emery_gauges.png) |
 
 ## Fonctionnement
@@ -20,7 +20,7 @@ chaque jauge.
   Ces en-têtes sont accessibles avec le scope `user:inference` des tokens
   `claude setup-token` (contrairement à l'endpoint `/api/oauth/usage`, qui
   exige `user:profile`).
-- Une ligne « Crédits d'utilisation en cours » s'ajoute sous les deux jauges
+- Une ligne « Utilisation des crédits en cours » s'ajoute sous les deux jauges
   quand l'en-tête `anthropic-ratelimit-unified-overage-in-use` vaut `true`,
   c'est-à-dire quand les crédits prennent le relais d'un forfait épuisé.
   C'est un indicateur et non une jauge : les en-têtes ne donnent aucun
@@ -45,13 +45,13 @@ Les en-têtes disent **si** l'on est en dépassement, jamais **combien** on a
 dépensé. Relevé sur un compte réel en dépassement actif (15/08/2026 18:41),
 avec 5,10 € de crédits consommés sur un plafond mensuel de 10,00 € :
 
-| Source | Valeur |
-|---|---|
-| en-tête `overage-in-use` | `true` |
-| en-tête `overage-utilization` | `0.0` |
-| en-tête `5h-utilization` / `5h-status` | `1.0` / `rejected` |
-| `/api/oauth/usage` → `extra_usage.utilization` | `51.0` |
-| `/api/oauth/usage` → `spend.percent` | `51` |
+| Source                                         | Valeur             |
+| ---------------------------------------------- | ------------------ |
+| en-tête `overage-in-use`                       | `true`             |
+| en-tête `overage-utilization`                  | `0.0`              |
+| en-tête `5h-utilization` / `5h-status`         | `1.0` / `rejected` |
+| `/api/oauth/usage` → `extra_usage.utilization` | `51.0`             |
+| `/api/oauth/usage` → `spend.percent`           | `51`               |
 
 Piège à éviter : `overage-utilization` ne suit pas la consommation de
 crédits. Il vaut `0.0` au moment même où l'on puise dessus, si bien qu'une

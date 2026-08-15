@@ -87,7 +87,7 @@ Sur <https://dev-portal.rebble.io> :
 
 **Notes de version 1.3.0**
 
-> Une ligne « Crédits d'utilisation en cours » s'affiche sous les jauges
+> Une ligne « Utilisation des crédits en cours » s'affiche sous les jauges
 > dès que le compte puise sur ses crédits après épuisement des limites du
 > forfait.
 
@@ -103,11 +103,11 @@ notes, captures). La description doit donc être modifiée à la main sur
 
 ## Checklist des assets
 
-| Asset | Fichier | Statut |
-|---|---|---|
-| `.pbw` | `build/ai-usage.pbw` (après `pebble build`) | ✅ |
-| Icône 48×48 | `store-assets/icon_small_48.png` | ✅ |
-| Icône 144×144 | `store-assets/icon_large_144.png` | ✅ |
-| Icône de menu (embarquée) | `resources/images/menu_icon.png` | ✅ |
-| Captures (une par plateforme, 7) | `screenshots/<plateforme>_gauges.png` | ✅ |
-| Compte développeur Rebble | à créer/connecter sur dev-portal.rebble.io | ⬜ |
+| Asset                            | Fichier                                     | Statut |
+| -------------------------------- | ------------------------------------------- | ------ |
+| `.pbw`                           | `build/ai-usage.pbw` (après `pebble build`) | ✅     |
+| Icône 48×48                      | `store-assets/icon_small_48.png`            | ✅     |
+| Icône 144×144                    | `store-assets/icon_large_144.png`           | ✅     |
+| Icône de menu (embarquée)        | `resources/images/menu_icon.png`            | ✅     |
+| Captures (une par plateforme, 7) | `screenshots/<plateforme>_gauges.png`       | ✅     |
+| Compte développeur Rebble        | à créer/connecter sur dev-portal.rebble.io  | ⬜     |
