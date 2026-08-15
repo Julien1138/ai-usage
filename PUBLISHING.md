@@ -85,6 +85,15 @@ Sur <https://dev-portal.rebble.io> :
 > the watch language; status messages and the settings page follow the
 > phone language.
 
+**Notes de version 1.3.0**
+
+> Une ligne « Crédits d'utilisation en cours » s'affiche sous les jauges
+> dès que le compte puise sur ses crédits après épuisement des limites du
+> forfait.
+
+> A "Now using usage credits" line appears below the gauges as soon as the
+> account draws on credits after exhausting its plan limits.
+
 ## Mise à jour de la description du store
 
 `pebble publish` n'envoie `--description` qu'à la **création** de la fiche :
